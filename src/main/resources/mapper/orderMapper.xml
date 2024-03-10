@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.example.demo.mapper.orderMapper">
+	<delete id="delCart" parameterType="map">
+	    DELETE FROM cart
+	    WHERE email = #{email}
+	    AND product_id =#{product_id}
+	</delete>
+	
+	<update id="delStock" parameterType="map">
+	    <choose>
+	        <when test="size.equalsIgnoreCase('xs')">
+	            UPDATE stock SET xs = xs - #{quantity} WHERE product_id = #{product_id}
+	        </when>
+	        <when test="size.equalsIgnoreCase('s')">
+	            UPDATE stock SET s = s - #{quantity} WHERE product_id = #{product_id}
+	        </when>
+	        <when test="size.equalsIgnoreCase('m')">
+	            UPDATE stock SET m = m - #{quantity} WHERE product_id = #{product_id}
+	        </when>
+	        <when test="size.equalsIgnoreCase('l')">
+	            UPDATE stock SET l = l - #{quantity} WHERE product_id = #{product_id}
+	        </when>
+	        <when test="size.equalsIgnoreCase('xl')">
+	            UPDATE stock SET xl = xl - #{quantity} WHERE product_id = #{product_id}
+	        </when>
+	        <!-- 다른 사이즈에 대한 처리 -->
+	    </choose>
+	</update>
+	<update id="addsales" parameterType="map">
+		UPDATE product SET sales_rate = sales_rate + #{quantity} WHERE product_id = #{product_id}
+	</update>
+		
+	 <insert id="addOrder" parameterType="map">
+        INSERT INTO Orders (order_id,order_date, email, receiver, phone, address, memo)
+        VALUES (#{order_id}, now(), #{email}, #{receiver}, #{phone}, #{address}, #{memo})
+    </insert>
+
+    <!-- OrderDetails 테이블에 주문 상세 정보를 추가하는 쿼리 -->
+    <insert id="addOrderDetail" parameterType="map">
+        INSERT INTO OrderDetails (order_id, product_id, quantity, size, name)
+        VALUES (#{order_id}, #{id}, #{quantity}, #{size}, #{name})
+    </insert>
+    
+	<select id="allbuyproduct" resultType="com.example.demo.dto.orderDTO">
+        SELECT o.order_id, o.order_date, o.order_req, o.receiver, o.phone, o.address,
+               d.product_id, d.quantity, d.size, p.name, p.img1, p.price
+        FROM Orders o 
+        JOIN OrderDetails d ON o.order_id = d.order_id
+        JOIN product p ON d.product_id = p.product_id
+        WHERE o.email = #{email}
+        ORDER BY o.order_date DESC
+    </select>
+</mapper>

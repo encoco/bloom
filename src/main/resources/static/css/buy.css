@@ -1,0 +1,264 @@
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p,
+span {
+  margin: 0;
+}
+
+a {
+  color: black;
+}
+
+img {
+  display: block;
+  width: 80%;
+  height: 80px;
+  margin: auto;
+}
+
+.cart {
+  width: 80%;
+  margin: auto;
+  padding: 30px;
+}
+
+
+
+table {
+  border-top: solid 1.5px black;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+
+thead {
+  text-align: center;
+  font-weight: bold;
+}
+
+tbody {
+  font-size: 12px;
+}
+
+td {
+  padding: 15px 0px;
+  border-bottom: 1px solid lightgrey;
+}
+
+
+
+.category ul{
+	background-color: white;
+	margin-bottom: 20px;
+}
+
+.title{
+	margin-top: 50px;
+}
+
+.title h1{
+	text-align: center;
+}
+
+.order_info{
+	margin-top: 8%;
+}
+
+
+/*카테고리*/
+.category_list {
+	list-style-type: none;
+	padding: 0;
+	}
+	
+.category_list a{
+	text-decoration-line: none;
+	background-color: white;
+}
+
+.category_list li{
+	display: inline-block;	
+	margin-right: 5%;
+}
+
+.cart__list__detail :nth-child(3) {
+  vertical-align: top;
+}
+
+.cart__list__detail :nth-child(3) a {
+  font-size: 12px;
+}
+
+.cart__list__detail :nth-child(3) p {
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+.cart__list__smartstore {
+  font-size: 12px;
+  color: gray;
+}
+
+.cart__list__option {
+  vertical-align: top;
+  padding: 20px;
+}
+
+.cart__list__option p {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.cart__list__option p::after {
+  content: "";
+  width: 90%;
+  height: 1px;
+  background-color: lightgrey;
+  left: 0px;
+  top: 25px;
+  position: absolute;
+}
+
+.cart__list__detail :nth-child(4),
+.cart__list__detail :nth-child(5),
+.cart__list__detail :nth-child(6) {
+  border-left: 2px solid whitesmoke;
+}
+
+.cart__list__detail :nth-child(5),
+.cart__list__detail :nth-child(6) {
+  text-align: center;
+}
+
+.cart__list__detail :nth-child(5) button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.cart__mainbtns {
+  width: 420px;
+  height: 200px;
+  padding-top: 40px;
+  display: block;
+  margin: auto;
+}
+
+.cart__bigorderbtn {
+  width: 200px;
+  height: 50px;
+  font-size: 16px;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.cart__bigorderbtn.left {
+  background-color: white;
+  border: 1px lightgray solid;
+}
+
+.cart__bigorderbtn.right {
+  background-color: black;
+  color: white;
+  border: none;
+}
+
+.cart__bigorderbtn.right .cart__bigorderlink {
+  color: white;
+  text-decoration: none; /* 링크 밑줄 제거 */
+  display: block; /* 링크를 블록 요소로 만들어 버튼 안에 꽉 차게 함 */
+  height: 100%; /* 버튼 안에 링크가 꽉 차게 함 */
+  line-height: 버튼의 높이; /* 링크 텍스트를 버튼 중앙에 정렬 */
+}
+
+.price_total {
+    font-size: 20px;
+    text-align: right;
+}
+
+.price_total span {
+    color: #ff204b;
+}
+
+
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .form-group input[type="text"],
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+  }
+
+.customer_address{
+	margin-top: 8%;
+}
+.change_address{
+	color:dodgerblue;
+	margin-left: 92%;
+	border: none;
+	background-color: white;
+	font-size: 20px;
+	font-weight:bold;
+}
+
+.Final_payment{
+	margin-top: 8%;
+}
+
+.order_totalpay dt {
+	 float: left; 
+	 font-size: 17px;
+	 } 
+	 
+.order_totalpay dd {
+    text-align: right;
+    font-size: 17px;
+}
+
+.order_totalpay .red {
+    color: #ff204b;
+}
+
+.order_totalpay .large{
+	font-size: 20px;
+    font-weight: 700;
+}
+
+.Payment_Method{
+	margin-top: 8%;
+}
+
+.paymentbtn {
+  width: 200px;
+  height: 50px;
+  font-size: 16px;
+  margin-left: 30%;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px lightgray solid;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.QandAMapper" >
+	<insert id="addQandA"
+		parameterType="com.example.demo.dto.QandADTO" useGeneratedKeys="true" keyProperty="inquiries_id">
+		INSERT INTO reviews
+		(inquiries_id, product_id, email, content, comment, rdate)
+		VALUES(#{inquiries_id}, #{product_id}, #{email}, #{content}, #{comment}, #{rdate});
+	</insert>
+</mapper>

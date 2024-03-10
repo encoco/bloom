@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.ReviewMapper" >
+	<insert id="insertReview"
+		parameterType="com.example.demo.dto.ReviewDTO" >
+		INSERT INTO reviews
+		(product_id, email, content, review_img, star_score)
+		VALUES(#{product_id}, #{email}, #{content}, #{review_img}, #{star_score});
+	</insert>
+	
+	 <select id="NoReview" resultType="com.example.demo.dto.ProductDTO">
+        SELECT 
+		    p.* ,od.size, od.quantity, od.name
+		FROM 
+		    product p
+		JOIN 
+		    OrderDetails od ON p.product_id = od.product_id
+		JOIN 
+		    Orders o ON od.order_id = o.order_id
+		LEFT JOIN 
+		    reviews r ON p.product_id = r.product_id AND o.email = r.email
+		WHERE 
+		    o.email = #{email} AND r.review_id IS NULL;
+    </select>
+    
+    <select id="YesReview" resultType="com.example.demo.dto.ReviewDTO">
+	    SELECT DISTINCT
+	    	r.product_id,
+		    r.review_img,
+		    r.review_date,
+		    r.star_score,
+		    r.content,
+		    r.review_id,
+			p.name
+		FROM 
+		    reviews r
+		JOIN 
+		    product p ON r.product_id = p.product_id
+		WHERE r.email = #{email}
+		order by review_date desc;
+    </select>
+    
+	<update id="ChengeReview" parameterType="com.example.demo.dto.ReviewDTO">
+	    UPDATE reviews
+	    SET content = #{content}, 
+	        review_img = #{review_img}, 
+	        star_score = #{star_score}
+	    WHERE review_id = #{review_id};
+	</update>
+	
+	<update id="NoimgChengeReview" parameterType="com.example.demo.dto.ReviewDTO">
+	    UPDATE reviews
+	    SET content = #{content}, 
+	        star_score = #{star_score}
+	    WHERE review_id = #{review_id};
+	</update>
+    
+    <select id="getReview" resultType="com.example.demo.dto.ReviewDTO">
+        SELECT *
+		FROM reviews
+		WHERE product_id= #{product_id}
+		order by review_date desc;
+    </select>
+</mapper>

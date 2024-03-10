@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.example.demo.mapper.ProductMapper">
+	<insert id="addProduct" parameterType="com.example.demo.dto.ProductDTO" useGeneratedKeys="true" keyProperty="product_id">
+    	INSERT INTO product
+    	(category_id, name, img1, img2, img3, img4, product_content, price, sale)
+    	VALUES(#{category_id}, #{name}, #{img1}, #{img2}, #{img3}, #{img4}, #{product_content}, #{price}, #{sale});
+	</insert>
+
+	<insert id="addStock" parameterType="com.example.demo.dto.ProductDTO">
+    	INSERT INTO stock
+    	(product_id, xs, s, m, l, xl)
+    	VALUES(#{product_id}, #{stock_xs}, #{stock_s}, #{stock_m}, #{stock_l}, #{stock_xl});
+	</insert>
+	<insert id="addCart" parameterType="com.example.demo.dto.cartDTO" useGeneratedKeys="true" keyProperty="cart_id">
+    	INSERT INTO cart
+    	(email,product_id,quantity,size)
+    	VALUES(#{email}, #{product_id}, #{quantity} , #{size});
+	</insert>
+	<select id="findcartitem" resultType="boolean">
+    	SELECT COUNT(*) > 0 FROM cart WHERE product_id = #{product_id} AND email = #{email};
+	</select>
+	
+	<select id="getCartItemsByEmail" resultType="com.example.demo.dto.cartDTO">
+        SELECT c.email, c.product_id, c.quantity, c.size , p.name, p.price, p.img1
+        FROM cart c
+        INNER JOIN product p ON c.product_id = p.product_id
+        WHERE c.email = #{email}
+    </select>
+    
+    
+	<select id="findProduct_id"
+		resultType="com.example.demo.dto.ProductDTO">
+		SELECT * FROM product where img1 = #{img1};
+	</select>
+	
+	<select id="getAllProductList"
+		resultType="com.example.demo.dto.ProductDTO">
+		SELECT * FROM product order by sales_rate desc;
+	</select>
+	
+	<select id="findById"
+		resultType="com.example.demo.dto.ProductDTO">
+		SELECT * FROM product where product_id = ${product_id};
+	</select>
+	
+	<select id="getcartdto"
+		resultType="com.example.demo.dto.cartDTO">
+		SELECT * FROM product where product_id = ${product_id};
+	</select>
+	
+	<select id="getlistProductById" resultType="com.example.demo.dto.cartDTO">
+	    SELECT cart.email, cart.product_id, cart.size, cart.quantity, product.name, product.price, product.img1
+	    FROM cart
+	    JOIN product ON cart.product_id = product.product_id
+	    WHERE cart.email = #{email}
+	    AND cart.product_id IN
+	    <foreach item="id" collection="product_id" open="(" separator="," close=")">
+	        #{id}
+    	</foreach>
+	</select>
+	
+	<select id="getProductStock" resultType="com.example.demo.dto.StockDTO">
+    	SELECT * FROM stock WHERE product_id = #{product_id};
+	</select>
+	
+	<select id="getProductsByCategory" resultType="com.example.demo.dto.ProductDTO">
+        SELECT * FROM product
+        WHERE category_id = #{categoryId}
+    </select>
+    
+    <select id="ProductSearch" resultType="com.example.demo.dto.ProductDTO">
+        SELECT * FROM product WHERE name LIKE CONCAT('%', #{keyword}, '%');
+    </select>
+
+</mapper>

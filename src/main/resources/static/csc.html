@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객 센터</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: #50b3a2;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        section {
+            padding: 2em;
+        }
+
+        .contact-form {
+            background: #fff;
+            margin: 1em 0;
+            padding: 2em;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 1em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 0.8em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background: #50b3a2;
+            color: #fff;
+            padding: 1em 2em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #3a8279;
+        }
+
+        .faq {
+            margin: 1em 0;
+        }
+
+        .faq h2 {
+            margin-top: 0;
+        }
+
+        .faq-item {
+            margin: 1em 0;
+        }
+
+        .faq-item h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>고객 센터</h1>
+    </header>
+
+    <section>
+        <div class="contact-form">
+            <h2>문의사항</h2>
+            <form action="contact_process.php" method="post">
+                <div class="form-group">
+                    <label for="name">이름:</label>
+                    <input type="text" name="name" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일:</label>
+                    <input type="email" name="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">메시지:</label>
+                    <textarea name="message" id="message" rows="5" required></textarea>
+                </div>
+                <input type="submit" value="보내기">
+            </form>
+        </div>
+
+        <div class="faq">
+            <h2>자주 묻는 질문</h2>
+            <div class="faq-item">
+                <h3>Q: 주문 취소는 어떻게 하나요?</h3>
+                <p>A: 주문 취소는 고객 센터로 문의해 주세요.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q: 환불 절차는 어떻게 되나요?</h3>
+                <p>A: 환불 절차는 ...에 명시되어 있습니다.</p>
+            </div>
+            <!-- FAQ 아이템을 필요한 만큼 추가하세요 -->
+        </div>
+    </section>
+</body>
+
+</html>
