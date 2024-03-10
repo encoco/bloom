@@ -1,0 +1,259 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema shop
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema shop
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `shop` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `shop` ;
+
+-- -----------------------------------------------------
+-- Table `shop`.`Orders`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`Orders` (
+  `order_key` INT NOT NULL AUTO_INCREMENT,
+  `order_id` INT NOT NULL,
+  `order_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `email` VARCHAR(50) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
+  `order_req` INT NULL DEFAULT '0',
+  `receiver` VARCHAR(100) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
+  `phone` VARCHAR(45) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
+  `address` VARCHAR(200) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
+  `memo` VARCHAR(100) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
+  PRIMARY KEY (`order_key`),
+  UNIQUE INDEX `order_id_unique` (`order_id` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 37
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`category`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`category` (
+  `category_id` INT NOT NULL,
+  `c_name` VARCHAR(30) NOT NULL,
+  PRIMARY KEY (`category_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`product` (
+  `product_id` INT NOT NULL AUTO_INCREMENT,
+  `category_id` INT NOT NULL,
+  `name` VARCHAR(150) NOT NULL,
+  `img1` VARCHAR(255) NOT NULL,
+  `img2` VARCHAR(600) NULL DEFAULT NULL,
+  `img3` VARCHAR(600) NULL DEFAULT NULL,
+  `img4` VARCHAR(600) NULL DEFAULT NULL,
+  `product_content` VARCHAR(1000) NULL DEFAULT NULL,
+  `price` INT NOT NULL,
+  `sale` INT NOT NULL,
+  `rdate` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `sales_rate` INT NULL DEFAULT '0',
+  PRIMARY KEY (`product_id`),
+  INDEX `fk_item_category1_idx` (`category_id` ASC) VISIBLE,
+  CONSTRAINT `fk_product_category_id`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `shop`.`category` (`category_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 51
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`OrderDetails`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`OrderDetails` (
+  `order_detail_id` INT NOT NULL AUTO_INCREMENT,
+  `order_id` INT NOT NULL,
+  `product_id` INT NOT NULL,
+  `quantity` INT NOT NULL,
+  `size` VARCHAR(45) NULL DEFAULT NULL,
+  `name` VARCHAR(100) NULL DEFAULT NULL,
+  `email` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`order_detail_id`),
+  INDEX `fk_OrderDetails_product_idx` (`product_id` ASC) VISIBLE,
+  INDEX `fk_orderdetails_order_idx` (`order_id` ASC) VISIBLE,
+  CONSTRAINT `fk_orderdetails_order`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `shop`.`Orders` (`order_id`),
+  CONSTRAINT `fk_OrderDetails_product`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `shop`.`product` (`product_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 55
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`customer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`customer` (
+  `email` VARCHAR(50) NOT NULL,
+  `userpwd` VARCHAR(15) NOT NULL,
+  `username` VARCHAR(15) NOT NULL,
+  `tel` VARCHAR(15) NOT NULL,
+  `RRN` VARCHAR(20) NOT NULL,
+  `req` INT NULL DEFAULT '0',
+  PRIMARY KEY (`email`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`address` (
+  `email` VARCHAR(50) NOT NULL,
+  `name` VARCHAR(15) NOT NULL,
+  `zipcode` VARCHAR(6) NOT NULL,
+  `address` VARCHAR(200) NOT NULL,
+  `addetail` VARCHAR(100) NOT NULL,
+  `tel` VARCHAR(15) NOT NULL,
+  `req` VARCHAR(100) NULL DEFAULT NULL,
+  `def` VARCHAR(1) NULL DEFAULT 'N',
+  PRIMARY KEY (`email`),
+  CONSTRAINT `fk_address_customer_idx`
+    FOREIGN KEY (`email`)
+    REFERENCES `shop`.`customer` (`email`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`admin`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`admin` (
+  `admin_email` VARCHAR(50) NOT NULL,
+  `adminpwd` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`admin_email`),
+  INDEX `fk_admin_customer_idx_idx` (`email` ASC) VISIBLE,
+  CONSTRAINT `fk_admin_customer_idx`
+    FOREIGN KEY (`email`)
+    REFERENCES `shop`.`customer` (`email`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`cart`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`cart` (
+  `cart_id` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(50) NOT NULL,
+  `product_id` INT NOT NULL,
+  `quantity` INT NOT NULL,
+  `size` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`cart_id`),
+  INDEX `fk_cart_customer_idx` (`email` ASC) VISIBLE,
+  INDEX `fk_cart_product_idx` (`product_id` ASC) VISIBLE,
+  CONSTRAINT `fk_cart_customerKey`
+    FOREIGN KEY (`email`)
+    REFERENCES `shop`.`customer` (`email`),
+  CONSTRAINT `fk_cart_product`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `shop`.`product` (`product_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 119
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`inquiries`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`inquiries` (
+  `inquiries_id` INT NOT NULL,
+  `product_id` INT NOT NULL,
+  `email` VARCHAR(50) NOT NULL,
+  `content` VARCHAR(300) NOT NULL,
+  `comment` VARCHAR(300) NULL DEFAULT NULL,
+  `rdate` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`inquiries_id`),
+  INDEX `fk_inquiries_email_idx` (`email` ASC) VISIBLE,
+  CONSTRAINT `fk_inquiries_email`
+    FOREIGN KEY (`email`)
+    REFERENCES `shop`.`customer` (`email`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`reviews`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`reviews` (
+  `product_id` INT NOT NULL,
+  `email` VARCHAR(50) NOT NULL,
+  `content` VARCHAR(1000) NOT NULL,
+  `review_img` VARCHAR(600) NULL DEFAULT NULL,
+  `star_score` INT NULL DEFAULT '-1',
+  `review_id` INT NOT NULL AUTO_INCREMENT,
+  `review_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`review_id`),
+  INDEX `fk_reviews_email_idx` (`email` ASC) VISIBLE,
+  CONSTRAINT `fk_reviews_email`
+    FOREIGN KEY (`email`)
+    REFERENCES `shop`.`customer` (`email`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 51
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`stock`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`stock` (
+  `product_id` INT NOT NULL,
+  `xs` INT NOT NULL,
+  `s` INT NOT NULL,
+  `m` INT NOT NULL,
+  `l` INT NOT NULL,
+  `xl` INT NOT NULL,
+  PRIMARY KEY (`product_id`),
+  CONSTRAINT `product_stock`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `shop`.`product` (`product_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `shop`.`wish`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shop`.`wish` (
+  `wish_id` INT NOT NULL,
+  `email` VARCHAR(50) NOT NULL,
+  `product_id` INT NOT NULL,
+  PRIMARY KEY (`wish_id`),
+  INDEX `fk_wish_custKey_idx` (`email` ASC) VISIBLE,
+  INDEX `fk_wish_product_idx` (`product_id` ASC) VISIBLE,
+  CONSTRAINT `fk_wish_email`
+    FOREIGN KEY (`email`)
+    REFERENCES `shop`.`customer` (`email`),
+  CONSTRAINT `fk_wish_product`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `shop`.`product` (`product_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
