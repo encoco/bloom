@@ -16,7 +16,10 @@ Bloom은 현대 소비자들의 온라인 쇼핑 니즈를 충족시키기 위�
 ## 화면 구성
 
 ### 로그인/회원가입
-[로그인 페이지 이미지]
+|로그인|회원가입|
+|:---:|:---:|
+|<img src="https://github.com/user-attachments/assets/4f8e1d57-1838-4217-8778-9e124201e4fe" width="400"/>|<img src="https://github.com/user-attachments/assets/f50bcb0a-74f7-4c3b-831b-3373a171c46a" width="400"/>|
+
 
 ### 메인페이지
 [메인페이지 이미지]
@@ -30,9 +33,8 @@ Bloom은 현대 소비자들의 온라인 쇼핑 니즈를 충족시키기 위�
 ---
 
 ## 주요 특징
-- 사용자 친화적인 UI/UX 설계
 - 상세한 상품 정보 제공
-- 효율적인 장바구니 및 주문 시스템
+- 장바구니 및 주문 시스템
 - 안전한 결제 프로세스
 - 회원 관리 시스템
 
@@ -64,6 +66,7 @@ Bloom은 현대 소비자들의 온라인 쇼핑 니즈를 충족시키기 위�
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
 
 ### Front-end
+![JSP](https://img.shields.io/badge/JSP-007396?style=for-the-badge&logo=java&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
