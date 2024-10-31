@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/357ae36d-8d72-4b43-aa39-f17afb219ec9)![image](https://github.com/user-attachments/assets/b9f8f7ec-f5c1-440a-bf81-0f8beb66a208)<div align="center">
+<div align="center">
 
 # Bloom (의류 쇼핑몰 웹사이트)
 
@@ -31,8 +31,8 @@ Bloom은 현대 소비자들의 온라인 쇼핑 니즈를 충족시키기 위�
 
 ### 장바구니/주문
 ![장바구니](https://github.com/user-attachments/assets/6e61dc08-5f17-46af-abf0-bc03b44036e9)
-![결제](https://github.com/user-attachments/assets/b255dc59-15c3-498a-88b3-1b89d4871522)
 ![결제화면](https://github.com/user-attachments/assets/28d89e82-9119-4664-a210-c4d6d9b5b1dc)
+![결제](https://github.com/user-attachments/assets/b255dc59-15c3-498a-88b3-1b89d4871522)
 ![주문내역](https://github.com/user-attachments/assets/3482f063-2041-4c1a-afd4-3443b154ed5f)
 
 ---
